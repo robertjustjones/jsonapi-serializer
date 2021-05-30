@@ -13,12 +13,12 @@
     "node": ">=0.12"
   },
   "dependencies": {
-    "inflected": "^1.1.6",
-    "lodash": "^4.16.3"
+    "inflected": "^1.1.7",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "chai": "^2.3.0",
-    "grunt": "^1.0.3",
+    "grunt": "^1.4.1",
     "grunt-browserify": "^5.3.0",
     "mocha": "^5.2.0",
     "mongoose": "^4.3.4"

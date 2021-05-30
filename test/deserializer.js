@@ -189,31 +189,31 @@ describe('JSON API Deserializer', function () {
       };
 
       new JSONAPIDeserializer()
-      .deserialize(dataSet, function (err, json) {
-        expect(json).to.be.an('array').with.length(2);
+        .deserialize(dataSet, function (err, json) {
+          expect(json).to.be.an('array').with.length(2);
 
-        expect(json[0]).to.have.key('id', 'first-name', 'last-name',
-          'address');
+          expect(json[0]).to.have.key('id', 'first-name', 'last-name',
+            'address');
 
-        expect(json[0].address).to.be.eql({
-          id: '54735722e16620ba1eee36af',
-          'address-line1': '406 Madison Court',
-          'zip-code': '49426',
-          country: 'USA'
+          expect(json[0].address).to.be.eql({
+            id: '54735722e16620ba1eee36af',
+            'address-line1': '406 Madison Court',
+            'zip-code': '49426',
+            country: 'USA'
+          });
+
+          expect(json[1]).to.have.key('id', 'first-name', 'last-name',
+            'address');
+
+          expect(json[1].address).to.be.eql({
+            id: '54735697e16624ba1eee36bf',
+            'address-line1': '361 Shady Lane',
+            'zip-code': '23185',
+            country: 'USA'
+          });
+
+          done(null, json);
         });
-
-        expect(json[1]).to.have.key('id', 'first-name', 'last-name',
-          'address');
-
-        expect(json[1].address).to.be.eql({
-          id: '54735697e16624ba1eee36bf',
-          'address-line1': '361 Shady Lane',
-          'zip-code': '23185',
-          country: 'USA'
-        });
-
-        done(null, json);
-      });
     });
 
     it('should convert relationship attributes to camelCase', function (done) {
@@ -262,32 +262,32 @@ describe('JSON API Deserializer', function () {
         }]
       };
 
-      new JSONAPIDeserializer({keyForAttribute: 'camelCase'})
-      .deserialize(dataSet, function (err, json) {
-        expect(json).to.be.an('array').with.length(2);
+      new JSONAPIDeserializer({ keyForAttribute: 'camelCase' })
+        .deserialize(dataSet, function (err, json) {
+          expect(json).to.be.an('array').with.length(2);
 
-        expect(json[0]).to.have.key('id', 'firstName', 'lastName',
-          'myAddress');
+          expect(json[0]).to.have.key('id', 'firstName', 'lastName',
+            'myAddress');
 
-        expect(json[0].myAddress).to.be.eql({
-          id: '54735722e16620ba1eee36af',
-          addressLine1: '406 Madison Court',
-          zipCode: '49426',
-          country: 'USA'
+          expect(json[0].myAddress).to.be.eql({
+            id: '54735722e16620ba1eee36af',
+            addressLine1: '406 Madison Court',
+            zipCode: '49426',
+            country: 'USA'
+          });
+
+          expect(json[1]).to.have.key('id', 'firstName', 'lastName',
+            'myAddress');
+
+          expect(json[1].myAddress).to.be.eql({
+            id: '54735697e16624ba1eee36bf',
+            addressLine1: '361 Shady Lane',
+            zipCode: '23185',
+            country: 'USA'
+          });
+
+          done(null, json);
         });
-
-        expect(json[1]).to.have.key('id', 'firstName', 'lastName',
-          'myAddress');
-
-        expect(json[1].myAddress).to.be.eql({
-          id: '54735697e16624ba1eee36bf',
-          addressLine1: '361 Shady Lane',
-          zipCode: '23185',
-          country: 'USA'
-        });
-
-        done(null, json);
-      });
 
     });
 
@@ -478,7 +478,7 @@ describe('JSON API Deserializer', function () {
           .deserialize(dataSet, function (err, json) {
             expect(json).to.be.an('object');
 
-            expect(json).to.have.key('id', 'first-name', 'last-name', 
+            expect(json).to.have.key('id', 'first-name', 'last-name',
               'username', 'images');
 
             expect(json.images).to.be.an('array').with.length(2)
@@ -490,7 +490,7 @@ describe('JSON API Deserializer', function () {
                 { name: 'jpeg', id: '1' },
                 { name: 'color', id: '2' },
                 { name: 'profile-pic', id: '3' }
-             ]
+              ]
             });
 
             expect(json.images[1]).to.be.eql({
@@ -553,7 +553,7 @@ describe('JSON API Deserializer', function () {
               id: '2',
               type: 'stores',
               attributes: {
-                name: 'Fashionable Clothes' 
+                name: 'Fashionable Clothes'
               },
               relationships: {
                 deals: {
@@ -619,7 +619,7 @@ describe('JSON API Deserializer', function () {
               name: 'Twin Pines Mall',
               id: '1',
               stores: [
-                { 
+                {
                   name: 'Tasty Food',
                   id: '1',
                   deals: [
@@ -634,10 +634,10 @@ describe('JSON API Deserializer', function () {
                       id: '2',
                       stores: [
                         { name: 'Tasty Food', id: '1' }
-                      ] 
-                    } 
+                      ]
+                    }
                   ]
-                }, { 
+                }, {
                   name: 'Fashionable Clothes',
                   id: '2',
                   deals: [
@@ -649,10 +649,10 @@ describe('JSON API Deserializer', function () {
                       ]
                     }
                   ]
-                }, { 
+                }, {
                   name: 'Readable Books',
                   id: '3'
-                } 
+                }
               ],
               deals: [
                 {
@@ -696,7 +696,7 @@ describe('JSON API Deserializer', function () {
                     }
                   ]
                 }
-              ] 
+              ]
             });
 
             done(null, json);
@@ -1028,32 +1028,56 @@ describe('JSON API Deserializer', function () {
 
     describe('Without included', function () {
       var baseDataSet = {
-          data: [{
-            type: 'users',
-            id: '54735750e16638ba1eee59cb',
-            attributes: {
-              'first-name': 'Sandro',
-              'last-name': 'Munda'
-            },
-            relationships: {
-              address: {
-                data: { type: 'addresses', id: '54735722e16620ba1eee36af' }
-              }
+        data: [{
+          type: 'users',
+          id: '54735750e16638ba1eee59cb',
+          attributes: {
+            'first-name': 'Sandro',
+            'last-name': 'Munda'
+          },
+          relationships: {
+            address: {
+              data: { type: 'addresses', id: '54735722e16620ba1eee36af' }
             }
-          }, {
-            type: 'users',
-            id: '5490143e69e49d0c8f9fc6bc',
-            attributes: {
-              'first-name': 'Lawrence',
-              'last-name': 'Bennett'
-            },
-            relationships: {
-              address: {
-                data: { type: 'addresses', id: '54735697e16624ba1eee36bf' }
-              }
+          }
+        }, {
+          type: 'users',
+          id: '5490143e69e49d0c8f9fc6bc',
+          attributes: {
+            'first-name': 'Lawrence',
+            'last-name': 'Bennett'
+          },
+          relationships: {
+            address: {
+              data: { type: 'addresses', id: '54735697e16624ba1eee36bf' }
             }
-          }]
-        };
+          }
+        }]
+      };
+
+      it('should perform the default behaviour', function (done) {
+        var dataSet = _.cloneDeep(baseDataSet);
+        new JSONAPIDeserializer({})
+          .deserialize(dataSet, function (err, json) {
+            expect(json).to.be.an('array').with.length(2);
+
+            expect(json[0]).to.have.key('id', 'first-name', 'last-name',
+              'address');
+
+            expect(json[0].address).to.be.eql({
+              id: '54735722e16620ba1eee36af',
+            });
+
+            expect(json[1]).to.have.key('id', 'first-name', 'last-name',
+              'address');
+
+            expect(json[1].address).to.be.eql({
+              id: '54735697e16624ba1eee36bf',
+            });
+
+            done(null, json);
+          });
+      });
 
       it('should use the value of valueForRelationship opt', function (done) {
         var dataSet = _.cloneDeep(baseDataSet);
@@ -1069,39 +1093,39 @@ describe('JSON API Deserializer', function () {
             }
           }
         })
-        .deserialize(dataSet, function (err, json) {
-          expect(json).to.be.an('array').with.length(2);
+          .deserialize(dataSet, function (err, json) {
+            expect(json).to.be.an('array').with.length(2);
 
-          expect(json[0]).to.have.key('id', 'first-name', 'last-name',
-            'address');
+            expect(json[0]).to.have.key('id', 'first-name', 'last-name',
+              'address');
 
-          expect(json[0].address).to.be.eql({
-            id: '54735722e16620ba1eee36af',
-            'address-line1': '406 Madison Court',
-            'zip-code': '49426',
-            country: 'USA'
+            expect(json[0].address).to.be.eql({
+              id: '54735722e16620ba1eee36af',
+              'address-line1': '406 Madison Court',
+              'zip-code': '49426',
+              country: 'USA'
+            });
+
+            expect(json[1]).to.have.key('id', 'first-name', 'last-name',
+              'address');
+
+            expect(json[1].address).to.be.eql({
+              id: '54735697e16624ba1eee36bf',
+              'address-line1': '406 Madison Court',
+              'zip-code': '49426',
+              country: 'USA'
+            });
+
+            done(null, json);
           });
-
-          expect(json[1]).to.have.key('id', 'first-name', 'last-name',
-            'address');
-
-          expect(json[1].address).to.be.eql({
-            id: '54735697e16624ba1eee36bf',
-            'address-line1': '406 Madison Court',
-            'zip-code': '49426',
-            country: 'USA'
-          });
-
-          done(null, json);
-        });
       });
       it('should use the value of a return promise from valueForRelationship opt', function (done) {
         var dataSet = _.cloneDeep(baseDataSet);
         new JSONAPIDeserializer({
           addresses: {
             valueForRelationship: function (relationship) {
-              return new Promise(function(resolve) {
-                setTimeout(function() {
+              return new Promise(function (resolve) {
+                setTimeout(function () {
                   resolve({
                     id: relationship.id,
                   });
@@ -1110,25 +1134,25 @@ describe('JSON API Deserializer', function () {
             }
           }
         })
-        .deserialize(dataSet, function (err, json) {
-          expect(json).to.be.an('array').with.length(2);
+          .deserialize(dataSet, function (err, json) {
+            expect(json).to.be.an('array').with.length(2);
 
-          expect(json[0]).to.have.key('id', 'first-name', 'last-name',
-            'address');
+            expect(json[0]).to.have.key('id', 'first-name', 'last-name',
+              'address');
 
-          expect(json[0].address).to.be.eql({
-            id: '54735722e16620ba1eee36af',
+            expect(json[0].address).to.be.eql({
+              id: '54735722e16620ba1eee36af',
+            });
+
+            expect(json[1]).to.have.key('id', 'first-name', 'last-name',
+              'address');
+
+            expect(json[1].address).to.be.eql({
+              id: '54735697e16624ba1eee36bf',
+            });
+
+            done(null, json);
           });
-
-          expect(json[1]).to.have.key('id', 'first-name', 'last-name',
-            'address');
-
-          expect(json[1].address).to.be.eql({
-            id: '54735697e16624ba1eee36bf',
-          });
-
-          done(null, json);
-        });
       });
     });
 
@@ -1243,8 +1267,8 @@ describe('JSON API Deserializer', function () {
       });
     });
 
-    describe('Without data.attributes, resource identifier', function() {
-      it('should deserialize an object without data.attributes', function(done) {
+    describe('Without data.attributes, resource identifier', function () {
+      it('should deserialize an object without data.attributes', function (done) {
         var dataSet = {
           data: {
             type: 'users',
@@ -1272,14 +1296,14 @@ describe('JSON API Deserializer', function () {
         };
 
         new JSONAPIDeserializer()
-        .deserialize(dataSet, function (err, json) {
-          expect(json).to.be.eql({
-            'first-name': 'Sandro',
-            'last-name': 'Munda'
-          });
+          .deserialize(dataSet, function (err, json) {
+            expect(json).to.be.eql({
+              'first-name': 'Sandro',
+              'last-name': 'Munda'
+            });
 
-          done(null, json);
-        });
+            done(null, json);
+          });
       });
     });
 
@@ -1319,34 +1343,34 @@ describe('JSON API Deserializer', function () {
           }]
         };
 
-        new JSONAPIDeserializer({typeAsAttribute: true})
-        .deserialize(dataSet, function (err, json) {
-          expect(json).to.be.an('array').with.length(2);
+        new JSONAPIDeserializer({ typeAsAttribute: true })
+          .deserialize(dataSet, function (err, json) {
+            expect(json).to.be.an('array').with.length(2);
 
-          expect(json[0]).to.have.key('id', 'first-name', 'last-name',
-            'address', 'type');
+            expect(json[0]).to.have.key('id', 'first-name', 'last-name',
+              'address', 'type');
 
-          expect(json[0].address).to.be.eql({
-            id: '54735722e16620ba1eee36af',
-            'address-line1': '406 Madison Court',
-            'zip-code': '49426',
-            country: 'USA',
-            type: 'addresses'
+            expect(json[0].address).to.be.eql({
+              id: '54735722e16620ba1eee36af',
+              'address-line1': '406 Madison Court',
+              'zip-code': '49426',
+              country: 'USA',
+              type: 'addresses'
+            });
+
+            expect(json[1]).to.have.key('id', 'name',
+              'address-line1', 'zip-code', 'country', 'type');
+            expect(json[1]).to.be.eql({
+              name: 'Shady Location',
+              'address-line1': '361 Shady Lane',
+              'zip-code': '23185',
+              country: 'USA',
+              id: '5490143e69e49d0c8f9fc6bc',
+              type: 'locations'
+            });
+
+            done(null, json);
           });
-
-          expect(json[1]).to.have.key('id', 'name',
-            'address-line1', 'zip-code', 'country', 'type');
-          expect(json[1]).to.be.eql({
-            name: 'Shady Location',
-            'address-line1': '361 Shady Lane',
-            'zip-code': '23185',
-            country: 'USA',
-            id: '5490143e69e49d0c8f9fc6bc',
-            type: 'locations'
-          });
-
-          done(null, json);
-        });
 
       });
     });
@@ -1384,7 +1408,7 @@ describe('JSON API Deserializer', function () {
           ],
         };
 
-        new JSONAPIDeserializer().deserialize(dataSet).then(function(json) {
+        new JSONAPIDeserializer().deserialize(dataSet).then(function (json) {
           expect(json).to.be.an('object').with.keys('id', 'owner', 'publisher');
           expect(json.owner).to.exist;
           expect(json.publisher).to.exist;
@@ -1411,21 +1435,21 @@ describe('JSON API Deserializer', function () {
       };
 
       new JSONAPIDeserializer()
-          .deserialize(dataSet).then(function (json) {
-            expect(json).to.be.an('array').with.length(2);
-            expect(json[0]).to.be.eql({
-              id: '54735750e16638ba1eee59cb',
-              'first-name': 'Sandro',
-              'last-name': 'Munda'
-            });
-            expect(json[1]).to.be.eql({
-              id: '5490143e69e49d0c8f9fc6bc',
-              'first-name': 'Lawrence',
-              'last-name': 'Bennett'
-            });
-
-            done(null, json);
+        .deserialize(dataSet).then(function (json) {
+          expect(json).to.be.an('array').with.length(2);
+          expect(json[0]).to.be.eql({
+            id: '54735750e16638ba1eee59cb',
+            'first-name': 'Sandro',
+            'last-name': 'Munda'
           });
+          expect(json[1]).to.be.eql({
+            id: '5490143e69e49d0c8f9fc6bc',
+            'first-name': 'Lawrence',
+            'last-name': 'Bennett'
+          });
+
+          done(null, json);
+        });
     });
   });
 
@@ -1471,26 +1495,26 @@ describe('JSON API Deserializer', function () {
         }]
       };
 
-      new JSONAPIDeserializer({keyForAttribute: 'snake_case'})
-          .deserialize(dataSet).then(function (json) {
-            expect(json).to.be.an('array').with.length(1);
-            expect(json[0]).to.have.key('id', 'first_name', 'last_name', 'address');
-            expect(json[0].address).to.be.eql({
-              address_line1: '406 Madison Court',
-              zip_code: '49426',
-              id: '54735722e16620ba1eee36af',
-              country: {
-                country: 'USA',
-                id: '54735722e16609ba1eee36af',
-                address: {
-                  address_line1: '406 Madison Court',
-                  zip_code: '49426',
-                  id: '54735722e16620ba1eee36af',
-                }
+      new JSONAPIDeserializer({ keyForAttribute: 'snake_case' })
+        .deserialize(dataSet).then(function (json) {
+          expect(json).to.be.an('array').with.length(1);
+          expect(json[0]).to.have.key('id', 'first_name', 'last_name', 'address');
+          expect(json[0].address).to.be.eql({
+            address_line1: '406 Madison Court',
+            zip_code: '49426',
+            id: '54735722e16620ba1eee36af',
+            country: {
+              country: 'USA',
+              id: '54735722e16609ba1eee36af',
+              address: {
+                address_line1: '406 Madison Court',
+                zip_code: '49426',
+                id: '54735722e16620ba1eee36af',
               }
-            });
-            done(null, json);
+            }
           });
+          done(null, json);
+        });
     });
   });
 
@@ -1509,13 +1533,13 @@ describe('JSON API Deserializer', function () {
       };
 
       new JSONAPIDeserializer({
-          transform: function (record) {
-            record['full-name'] = record['first-name'] + ' ' + record['last-name'];
-            delete record['first-name'];
-            delete record['last-name'];
-            return record;
-          }
-        })
+        transform: function (record) {
+          record['full-name'] = record['first-name'] + ' ' + record['last-name'];
+          delete record['first-name'];
+          delete record['last-name'];
+          return record;
+        }
+      })
         .deserialize(dataSet, function (err, json) {
           expect(json).to.be.an('array').with.length(2);
           expect(json[0]).to.be.eql({
@@ -1545,45 +1569,45 @@ describe('JSON API Deserializer', function () {
       };
 
       new JSONAPIDeserializer()
-      .deserialize(dataSet, function (err, json) {
-        expect(json).to.be.eql({
-          'first-name': 'Sandro',
-          'last-name': 'Munda',
-          'meta': {
-            'some': 'attribute'
-          }
-        });
+        .deserialize(dataSet, function (err, json) {
+          expect(json).to.be.eql({
+            'first-name': 'Sandro',
+            'last-name': 'Munda',
+            'meta': {
+              'some': 'attribute'
+            }
+          });
 
-        done(null, json);
-      });
+          done(null, json);
+        });
     });
 
-     it('should be in camelCase', function (done) {
-       var dataSet = {
-         data: {
-           type: 'users',
-           attributes: { 'first-name': 'Sandro', 'last-name': 'Munda' },
-           meta: {
-             'some-attr': 'value'
-           }
-         }
-       };
+    it('should be in camelCase', function (done) {
+      var dataSet = {
+        data: {
+          type: 'users',
+          attributes: { 'first-name': 'Sandro', 'last-name': 'Munda' },
+          meta: {
+            'some-attr': 'value'
+          }
+        }
+      };
 
-       new JSONAPIDeserializer({
-         keyForAttribute: 'camelCase'
-       })
-       .deserialize(dataSet, function (err, json) {
-         expect(json).to.be.eql({
-           'firstName': 'Sandro',
-           'lastName': 'Munda',
-           'meta': {
-             'someAttr': 'value'
-           }
-         });
+      new JSONAPIDeserializer({
+        keyForAttribute: 'camelCase'
+      })
+        .deserialize(dataSet, function (err, json) {
+          expect(json).to.be.eql({
+            'firstName': 'Sandro',
+            'lastName': 'Munda',
+            'meta': {
+              'someAttr': 'value'
+            }
+          });
 
-         done(null, json);
-       });
-     });
+          done(null, json);
+        });
+    });
   });
 
   describe('links', function () {
@@ -1600,15 +1624,15 @@ describe('JSON API Deserializer', function () {
       };
 
       new JSONAPIDeserializer()
-      .deserialize(dataSet, function (err, json) {
-        expect(json).to.have.key('first-name', 'last-name', 'links');
-        expect(json.links).to.be.eql({
-          self: '/articles/1/relationships/tags',
-          related: '/articles/1/tags'
-        });
+        .deserialize(dataSet, function (err, json) {
+          expect(json).to.have.key('first-name', 'last-name', 'links');
+          expect(json.links).to.be.eql({
+            self: '/articles/1/relationships/tags',
+            related: '/articles/1/tags'
+          });
 
-        done(null, json);
-      });
+          done(null, json);
+        });
     });
   });
 
