@@ -1,14 +1,17 @@
 {
-  "name": "jsonapi-serializer",
-  "version": "3.6.7",
+  "name": "@dreamer/jsonapi-serializer",
+  "version": "3.6.8",
   "description": "A Node.js framework agnostic library for serializing your data to JSON API",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha"
   },
-  "author": "Sandro Munda <sandro@munda.me>",
+  "author": {
+    "name": "dreamer",
+    "email": "dreamer22qq@gmail.com"
+  },
   "license": "MIT",
-  "repository": "SeyZ/jsonapi-serializer",
+  "repository": "dreamer2q/jsonapi-serializer",
   "engines": {
     "node": ">=0.12"
   },
