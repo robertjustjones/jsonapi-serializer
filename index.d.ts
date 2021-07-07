@@ -33,6 +33,7 @@ export interface SerializerOptions {
 	typeForAttribute?: TypeForAttribute;
 	meta?: object;
 	transform?: Transform;
+	[key: string]: any,
 }
 
 export interface KeyForAttribute {
